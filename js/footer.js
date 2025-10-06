@@ -26,11 +26,11 @@ function createFooter() {
                 <div class="mb-8 md:mb-0">
                     <h4 class="text-lg font-semibold mb-4">Navigasi</h4>
                     <ul>
-                        <li class="mb-2"><a href="/" class="hover:text-yellow-200 transition-colors">Beranda</a></li>
-                        <li class="mb-2"><a href="${pagesPrefix}kb.html" class="hover:text-yellow-200 transition-colors">KB AL FATH</a></li>
-                        <li class="mb-2"><a href="${pagesPrefix}tk.html" class="hover:text-yellow-200 transition-colors">TK ISLAM AL-FATH</a></li>
-                        <li class="mb-2"><a href="${pagesPrefix}galeri.php" class="hover:text-yellow-200 transition-colors">Galeri</a></li>
-                        <li class="mb-2"><a href="${pagesPrefix}berita.php" class="text-white hover:text-yellow-200 transition-colors">Berita</a></li>
+                        <li class="mb-2"><a href="index.html" class="hover:text-yellow-200 transition-colors">Beranda</a></li>
+                        <li class="mb-2"><a href="kb.html" class="hover:text-yellow-200 transition-colors">KB AL FATH</a></li>
+                        <li class="mb-2"><a href="tk.html" class="hover:text-yellow-200 transition-colors">TK ISLAM AL-FATH</a></li>
+                        <li class="mb-2"><a href="galeri.html" class="hover:text-yellow-200 transition-colors">Galeri</a></li>
+                        <li class="mb-2"><a href="berita.html" class="text-white hover:text-yellow-200 transition-colors">Berita</a></li>
                     </ul>
                 </div>
 
