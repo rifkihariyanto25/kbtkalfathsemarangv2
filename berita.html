@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Berita - KB-TK Islam Al Fath</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- AOS Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <script src="js/navbar.js" defer></script> 
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #f9fafb;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f26622' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .brand-orange {
+            color: #f26622;
+        }
+
+        .bg-brand-orange {
+            background-color: #f26622;
+        }
+
+        .border-brand-orange {
+            border-color: #f26622;
+        }
+
+        .filter-button {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-button.active {
+            background-color: #f26622;
+            color: white;
+        }
+
+        .berita-item {
+            display: block;
+        }
+
+        .berita-item.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Banner -->
+    <section class="relative bg-gray-900 text-white">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/berita.png');"></div>
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="container mx-auto px-4 py-24 relative z-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Berita & Pengumuman</h1>
+            <p class="text-xl max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">Informasi terbaru seputar kegiatan dan pengumuman KB-TK Islam Al Fath Semarang</p>
+        </div>
+    </section>
+
+    <!-- Filter Buttons -->
+    <section class="py-8 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-4" data-aos="fade-up">
+                <button onclick="filterBerita('semua')" class="filter-button active px-6 py-2 rounded-full border-2 border-gray-300 font-medium text-gray-700 hover:border-brand-orange hover:text-brand-orange" data-filter="semua">
+                    Semua
+                </button>
+                <button onclick="filterBerita('pengumuman')" class="filter-button px-6 py-2 rounded-full border-2 border-gray-300 font-medium text-gray-700 hover:border-brand-orange hover:text-brand-orange" data-filter="pengumuman">
+                    Pengumuman
+                </button>
+                <button onclick="filterBerita('kegiatan')" class="filter-button px-6 py-2 rounded-full border-2 border-gray-300 font-medium text-gray-700 hover:border-brand-orange hover:text-brand-orange" data-filter="kegiatan">
+                    Kegiatan
+                </button>
+                <button onclick="filterBerita('prestasi')" class="filter-button px-6 py-2 rounded-full border-2 border-gray-300 font-medium text-gray-700 hover:border-brand-orange hover:text-brand-orange" data-filter="prestasi">
+                    Prestasi
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berita List -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="beritaContainer">
+        
+            <!-- Berita 1 -->
+            <div class="berita-item bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-kategori="pengumuman">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="Berita 1" class="w-full h-48 object-cover">
+                    <span class="absolute top-4 right-4 text-xs bg-white text-gray-800 px-3 py-1 rounded-full">Pengumuman</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Pengumuman Pembukaan KB</h3>
+                    <p class="text-gray-600 mb-4">Informasi tentang pembukaan KB tahun ajaran baru di KB-TK Al Fath.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-1"></i> 01 Okt 2025</span>
+                        <a href="#" class="text-orange-500 hover:text-orange-700 font-medium">Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Berita 2 -->
+            <div class="berita-item bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="50" data-kategori="kegiatan">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1587616211892-е8be47595631?w=400" alt="Berita 2" class="w-full h-48 object-cover">
+                    <span class="absolute top-4 right-4 text-xs bg-white text-gray-800 px-3 py-1 rounded-full">Kegiatan</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Kegiatan Outbound TK</h3>
+                    <p class="text-gray-600 mb-4">Anak-anak TK mengikuti kegiatan outbound di alam terbuka.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-1"></i> 25 Sep 2025</span>
+                        <a href="#" class="text-orange-500 hover:text-orange-700 font-medium">Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Berita 3 -->
+            <div class="berita-item bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100" data-kategori="prestasi">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1560785477-d43d2b34e0df?w=400" alt="Berita 3" class="w-full h-48 object-cover">
+                    <span class="absolute top-4 right-4 text-xs bg-white text-gray-800 px-3 py-1 rounded-full">Prestasi</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Prestasi Siswa TK</h3>
+                    <p class="text-gray-600 mb-4">Siswa TK berhasil meraih juara lomba mewarnai tingkat kota.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-1"></i> 20 Sep 2025</span>
+                        <a href="#" class="text-orange-500 hover:text-orange-700 font-medium">Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Berita 4 -->
+            <div class="berita-item bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="150" data-kategori="pengumuman">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400" alt="Berita 4" class="w-full h-48 object-cover">
+                    <span class="absolute top-4 right-4 text-xs bg-white text-gray-800 px-3 py-1 rounded-full">Pengumuman</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Pengumuman Libur Nasional</h3>
+                    <p class="text-gray-600 mb-4">KB-TK Al Fath libur pada tanggal merah nasional.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-1"></i> 18 Sep 2025</span>
+                        <a href="#" class="text-orange-500 hover:text-orange-700 font-medium">Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Berita 5 -->
+            <div class="berita-item bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="200" data-kategori="kegiatan">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=400" alt="Berita 5" class="w-full h-48 object-cover">
+                    <span class="absolute top-4 right-4 text-xs bg-white text-gray-800 px-3 py-1 rounded-full">Kegiatan</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Kegiatan Kelas TK B</h3>
+                    <p class="text-gray-600 mb-4">Kegiatan kreatif TK B dengan tema seni dan kerajinan.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-1"></i> 15 Sep 2025</span>
+                        <a href="#" class="text-orange-500 hover:text-orange-700 font-medium">Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Berita 6 -->
+            <div class="berita-item bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="250" data-kategori="prestasi">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=400" alt="Berita 6" class="w-full h-48 object-cover">
+                    <span class="absolute top-4 right-4 text-xs bg-white text-gray-800 px-3 py-1 rounded-full">Prestasi</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Prestasi Siswa KB</h3>
+                    <p class="text-gray-600 mb-4">Siswa KB mendapatkan penghargaan lomba cerita pendek.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-1"></i> 10 Sep 2025</span>
+                        <a href="#" class="text-orange-500 hover:text-orange-700 font-medium">Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- AOS Library Script -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({ duration: 800, once: true });
+
+        // Filter Function
+        function filterBerita(kategori) {
+            const beritaItems = document.querySelectorAll('.berita-item');
+            const filterButtons = document.querySelectorAll('.filter-button');
+            
+            // Update active button
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-filter') === kategori) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter items
+            beritaItems.forEach(item => {
+                if (kategori === 'semua') {
+                    item.style.display = 'block';
+                } else {
+                    if (item.getAttribute('data-kategori') === kategori) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+
+<!-- Footer.js Script --> 
+    <script src="js/footer.js"></script>
+</body>
+</html>

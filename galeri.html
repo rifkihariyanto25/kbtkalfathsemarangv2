@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galeri - KB-TK Islam Al Fath</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Animate On Scroll (AOS) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+     <!-- Navbar.js Script --> 
+    <script src="js/navbar.js" defer></script> 
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #ffffff;
+        }
+
+        .brand-orange {
+            color: #f26622;
+        }
+
+        .bg-brand-orange {
+            background-color: #f26622;
+        }
+
+        .border-brand-orange {
+            border-color: #f26622;
+        }
+
+        .bg-brand-red {
+            background-color: #9a3b1b;
+        }
+
+        .text-dark-gray {
+            color: #4f4f4f;
+        }
+
+        .filter-btn {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background-color: #f26622;
+            color: white;
+            border-color: #f26622;
+        }
+
+        .date-separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #828282;
+            margin: 3rem 0;
+        }
+
+        .date-separator::before,
+        .date-separator::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .date-separator:not(:empty)::before {
+            margin-right: 0.5em;
+        }
+
+        .date-separator:not(:empty)::after {
+            margin-left: 0.5em;
+        }
+
+        /* Hover effect */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item video {
+            display: block;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            color: white;
+            padding: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .pagination button {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e5e5;
+            border-radius: 0.5rem;
+            color: #6b7280;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            border-color: #f26622;
+            color: #f26622;
+        }
+
+        .pagination button.active {
+            background-color: #f26622;
+            border-color: #f26622;
+            color: white;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="pattern-bg">
+
+    <main class="container mx-auto px-6 py-16">
+        <!-- ===== PAGE HEADER ===== -->
+        <section class="text-center mb-12" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+                Momen Tak Terlupakan di <span class="brand-orange">Al Fath</span>
+            </h1>
+            <p class="mt-4 text-lg text-dark-gray">
+                Lihat keseruan dan petualangan kami di Al-Fath!
+            </p>
+        </section>
+
+        <!-- ===== FILTER BUTTONS ===== -->
+        <section class="flex justify-center items-center space-x-2 md:space-x-4 mb-12" data-aos="fade-up" data-aos-delay="100">
+            <button onclick="filterGallery('semua')" class="filter-btn active font-semibold py-2 px-6 rounded-full border-2 border-gray-300 text-gray-500" data-filter="semua">
+                Semua
+            </button>
+            <button onclick="filterGallery('kb')" class="filter-btn font-semibold py-2 px-6 rounded-full border-2 border-gray-300 text-gray-500" data-filter="kb">
+                KB
+            </button>
+            <button onclick="filterGallery('tk')" class="filter-btn font-semibold py-2 px-6 rounded-full border-2 border-gray-300 text-gray-500" data-filter="tk">
+                TK
+            </button>
+            <button onclick="filterGallery('spesial')" class="filter-btn font-semibold py-2 px-6 rounded-full border-2 border-gray-300 text-gray-500" data-filter="spesial">
+                Acara Spesial
+            </button>
+        </section>
+
+        <!-- ===== GALLERY ===== -->
+        <section id="gallery-grid">
+            <!-- Date Group 1: 5 Oktober 2025 -->
+            <div class="gallery-date-group" data-aos="fade-up">
+                <div class="date-separator">5 Oktober 2025</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="gallery-item col-span-2 row-span-2" data-category="tk">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800" alt="Kegiatan TK Outdoor" />
+                        <div class="gallery-caption">
+                            <p>Kegiatan TK Outdoor</p>
+                            <p class="text-sm opacity-75">Bermain dan belajar di alam terbuka</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-1" data-category="tk">
+                        <img src="https://images.unsplash.com/photo-1587616211892-e8be47595631?w=400" alt="Bermain di Taman" />
+                        <div class="gallery-caption">
+                            <p>Bermain di Taman</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-1" data-category="tk">
+                        <img src="https://images.unsplash.com/photo-1560785477-d43d2b34e0df?w=400" alt="Aktivitas Seni" />
+                        <div class="gallery-caption">
+                            <p>Aktivitas Seni</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-1" data-category="tk">
+                        <img src="https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=400" alt="Kegiatan Kelas" />
+                        <div class="gallery-caption">
+                            <p>Kegiatan Kelas</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-1" data-category="tk">
+                        <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=400" alt="Belajar Bersama" />
+                        <div class="gallery-caption">
+                            <p>Belajar Bersama</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date Group 2: 28 September 2025 -->
+            <div class="gallery-date-group" data-aos="fade-up" data-aos-delay="100">
+                <div class="date-separator">28 September 2025</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="gallery-item col-span-2 row-span-1" data-category="kb">
+                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800" alt="KB Main Edukatif" />
+                        <div class="gallery-caption">
+                            <p>KB Main Edukatif</p>
+                            <p class="text-sm opacity-75">Permainan edukatif untuk KB</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-2" data-category="kb">
+                        <img src="https://images.unsplash.com/photo-1576495199011-eb94736d05d6?w=400&h=800" alt="Aktivitas KB" />
+                        <div class="gallery-caption">
+                            <p>Aktivitas KB</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-2" data-category="kb">
+                        <img src="https://images.unsplash.com/photo-1612715562348-cecd0ebfb72a?w=400&h=800" alt="Belajar KB" />
+                        <div class="gallery-caption">
+                            <p>Belajar KB</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-2 row-span-1" data-category="kb">
+                        <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800" alt="Bermain KB" />
+                        <div class="gallery-caption">
+                            <p>Bermain KB</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date Group 3: 15 September 2025 -->
+            <div class="gallery-date-group" data-aos="fade-up" data-aos-delay="200">
+                <div class="date-separator">15 September 2025</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="gallery-item col-span-1 row-span-1" data-category="spesial">
+                        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400" alt="Acara Spesial 1" />
+                        <div class="gallery-caption">
+                            <p>Perayaan Hari Kemerdekaan</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-2 row-span-2" data-category="spesial">
+                        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800" alt="Acara Spesial Utama" />
+                        <div class="gallery-caption">
+                            <p>Acara Spesial Utama</p>
+                            <p class="text-sm opacity-75">Perayaan besar bersama seluruh siswa</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-1" data-category="spesial">
+                        <img src="https://images.unsplash.com/photo-1533854775446-95c4609da544?w=400" alt="Acara Spesial 2" />
+                        <div class="gallery-caption">
+                            <p>Lomba dan Kompetisi</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-1" data-category="spesial">
+                        <img src="https://images.unsplash.com/photo-1464047736614-af63643285bf?w=400" alt="Acara Spesial 3" />
+                        <div class="gallery-caption">
+                            <p>Pentas Seni</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item col-span-1 row-span-1" data-category="spesial">
+                        <img src="https://images.unsplash.com/photo-1517164850305-99a3e65bb47e?w=400" alt="Acara Spesial 4" />
+                        <div class="gallery-caption">
+                            <p>Buka Puasa Bersama</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button onclick="changePage('prev')" id="prevBtn">
+                    &laquo; Sebelumnya
+                </button>
+                
+                <button onclick="goToPage(1)" class="page-btn active" data-page="1">1</button>
+                <button onclick="goToPage(2)" class="page-btn" data-page="2">2</button>
+                <button onclick="goToPage(3)" class="page-btn" data-page="3">3</button>
+                
+                <button onclick="changePage('next')" id="nextBtn">
+                    Selanjutnya &raquo;
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- AOS Library Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({ duration: 800, once: true });
+
+        // Gallery Data Management
+        let currentFilter = 'semua';
+        let currentPage = 1;
+        const totalPages = 3;
+
+        // Filter Gallery Function
+        function filterGallery(category) {
+            currentFilter = category;
+            currentPage = 1;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter items
+            const dateGroups = document.querySelectorAll('.gallery-date-group');
+            
+            dateGroups.forEach(group => {
+                const items = group.querySelectorAll('.gallery-item');
+                let visibleCount = 0;
+                
+                items.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    if (category === 'semua' || itemCategory === category) {
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Hide date separator if no items visible
+                if (visibleCount === 0) {
+                    group.style.display = 'none';
+                } else {
+                    group.style.display = 'block';
+                }
+            });
+            
+            updatePagination();
+        }
+
+        // Pagination Functions
+        function goToPage(page) {
+            currentPage = page;
+            
+            // Update active page button
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (parseInt(btn.getAttribute('data-page')) === page) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changePage(direction) {
+            if (direction === 'prev' && currentPage > 1) {
+                goToPage(currentPage - 1);
+            } else if (direction === 'next' && currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        }
+
+        function updatePagination() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
+
+        // Gallery Item Click Handler
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const video = this.querySelector('video');
+                if (video) {
+                    return;
+                }
+                
+                const img = this.querySelector('img');
+                if (img) {
+                    window.open(img.src, '_blank');
+                }
+            });
+        });
+
+        // Initialize
+        updatePagination();
+    </script>
+    
+    <!-- Footer.js Script --> 
+    <script src="js/footer.js"></script>
+</body>
+
+</html>
